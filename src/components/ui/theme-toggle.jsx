@@ -10,7 +10,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={() => {
-        alert(`Theme toggle clicked! Current theme: ${theme}`)
+       
         setTheme(theme === "light" ? "dark" : "light")
       }
 
