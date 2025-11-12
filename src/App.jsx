@@ -8,21 +8,22 @@ import { ThemeProvider } from "@/lib/theme-provider";
 // ✅ Only Landing import for now
 import Landing from "@/pages/landing";
 // import NotFound from "@/pages/not-found";
-// import Pricing from "@/pages/pricing";
+import Pricing from "@/pages/pricing";
 import Signup from "@/pages/signup";
 import Login from "@/pages/login";
-// import Dashboard from "@/pages/dashboard";
-// import AdminDashboard from "@/pages/admin-dashboard";
-// import AdminTenants from "@/pages/admin-tenants";
-// import AdminReports from "@/pages/admin-reports";
-// import Books from "@/pages/books";
-// import BookForm from "@/pages/book-form";
-// import Students from "@/pages/students";
-// import StudentForm from "@/pages/student-form";
+import Dashboard from "@/pages/dashboard";
+import AdminDashboard from "@/pages/admin-dashboard";
+import AdminTenants from "@/pages/admin-tenants";
+import AdminReports from "@/pages/admin-reports";
+import Books from "@/pages/books";
+import BookForm from "@/pages/book-form";
+import Students from "@/pages/students";
+import StudentForm from "@/pages/student-form";
+import StudentDetail from "./pages/student-detail";
 // import StudentDetail from "@/pages/student-detail";
-// import Issues from "@/pages/issues";
-// import Reports from "@/pages/reports";
-// import Settings from "@/pages/settings";
+import Issues from "@/pages/issues";
+import Reports from "@/pages/reports";
+import Settings from "@/pages/settings";
 // import { ProtectedLayout } from "@/components/protected-layout";
 
 function Router() {
@@ -32,13 +33,25 @@ function Router() {
 
 
       <Route path="/" component={Landing} />
-<Route path="/signup" component={Signup} />
+      <Route path="/signup" component={Signup} />
       <Route path="/login" component={Login} />
-
+      <Route path="/pricing" component={Pricing} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/student-form" component={StudentForm} />
+      <Route path="/students" component={Students} />
+      <Route path="/student-detail" component={StudentDetail} />
+      <Route path="/reports" component={Reports} />
+      <Route path="/settings" component={Settings} />
+      <Route path="/admin-dashboard" component={AdminDashboard} />
+      <Route path="/admin-reports" component={AdminReports} />
+      <Route path="/admin-tenants" component={AdminTenants} />
+      <Route path="/books" component={Books} />
+      <Route path="/book-form" component={BookForm} />
+      <Route path="/issues" component={Issues} />
 
       {/* ✅ All other routes disabled for now */}
       {/*
-      <Route path="/pricing" component={Pricing} />
+   
       
 
       <Route path="/admin/dashboard">

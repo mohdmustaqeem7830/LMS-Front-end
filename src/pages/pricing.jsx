@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Check, BookOpen } from "lucide-react";
@@ -63,16 +62,13 @@ export default function Pricing() {
               <span className="font-bold text-xl">LibraryMS</span>
             </div>
           </Link>
-
           <div className="flex items-center gap-4">
             <ThemeToggle />
-
             <Link href="/login">
               <Button variant="ghost" data-testid="button-login">
                 Log In
               </Button>
             </Link>
-
             <Link href="/signup">
               <Button data-testid="button-signup">Get Started</Button>
             </Link>
@@ -82,7 +78,6 @@ export default function Pricing() {
 
       <main className="py-20">
         <div className="container mx-auto px-4">
-          {/* Section Header */}
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Choose Your Plan</h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -90,7 +85,6 @@ export default function Pricing() {
             </p>
           </div>
 
-          {/* Pricing Cards */}
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
             {plans.map((plan) => (
               <div
@@ -107,7 +101,6 @@ export default function Pricing() {
                     </span>
                   </div>
                 )}
-
                 <div className="mb-6">
                   <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
                   <div className="flex items-baseline gap-1">
@@ -115,7 +108,6 @@ export default function Pricing() {
                     <span className="text-muted-foreground">/month</span>
                   </div>
                 </div>
-
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-3">
@@ -124,7 +116,6 @@ export default function Pricing() {
                     </li>
                   ))}
                 </ul>
-
                 <Link href="/signup">
                   <Button
                     className="w-full"
@@ -138,10 +129,8 @@ export default function Pricing() {
             ))}
           </div>
 
-          {/* FAQ Section */}
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
-
             <div className="space-y-6">
               {[
                 {
