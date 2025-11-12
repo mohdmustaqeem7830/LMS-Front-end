@@ -9,8 +9,8 @@ import { ThemeProvider } from "@/lib/theme-provider";
 import Landing from "@/pages/landing";
 // import NotFound from "@/pages/not-found";
 // import Pricing from "@/pages/pricing";
-// import Signup from "@/pages/signup";
-// import Login from "@/pages/login";
+import Signup from "@/pages/signup";
+import Login from "@/pages/login";
 // import Dashboard from "@/pages/dashboard";
 // import AdminDashboard from "@/pages/admin-dashboard";
 // import AdminTenants from "@/pages/admin-tenants";
@@ -29,13 +29,17 @@ function Router() {
   return (
     <Switch>
       {/* ✅ Only public route enabled */}
+
+
       <Route path="/" component={Landing} />
+<Route path="/signup" component={Signup} />
+      <Route path="/login" component={Login} />
+
 
       {/* ✅ All other routes disabled for now */}
       {/*
       <Route path="/pricing" component={Pricing} />
-      <Route path="/signup" component={Signup} />
-      <Route path="/login" component={Login} />
+      
 
       <Route path="/admin/dashboard">
         <ProtectedLayout requiredRole={["SUPER_ADMIN"]}>
