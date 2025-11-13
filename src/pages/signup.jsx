@@ -70,8 +70,8 @@ export default function Signup() {
           <div className="flex items-center gap-4">
             <ThemeToggle />
             <Link href="/login">
-              <Button variant="ghost" data-testid="button-login">
-                Already have an account?
+              <Button data-testid="button-signup">
+                Log In
               </Button>
             </Link>
           </div>

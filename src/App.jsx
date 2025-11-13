@@ -24,6 +24,7 @@ import StudentDetail from "./pages/student-detail";
 import Issues from "@/pages/issues";
 import Reports from "@/pages/reports";
 import Settings from "@/pages/settings";
+import MasterLayout from "@/layout/master-layout";
 // import { ProtectedLayout } from "@/components/protected-layout";
 
 function Router() {
@@ -48,6 +49,7 @@ function Router() {
       <Route path="/books" component={Books} />
       <Route path="/book-form" component={BookForm} />
       <Route path="/issues" component={Issues} />
+      <Route path="/master-layout" component={MasterLayout} />
 
       {/* ✅ All other routes disabled for now */}
       {/*
