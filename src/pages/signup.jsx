@@ -1,4 +1,5 @@
-import { useState } from "react";
+// import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,7 +43,7 @@ export default function Signup() {
       adminLastName: "",
       adminEmail: "",
       adminPassword: "",
-      subscriptionPlanId: "professional",
+      libraryPlanId: "1",
     },
   });
 
@@ -55,6 +56,15 @@ export default function Signup() {
     { number: 2, title: "Admin Account" },
     { number: 3, title: "Choose Plan" },
   ];
+
+  const [plans, setPlans] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/public/plan")
+      .then((res) => res.json())
+      .then((data) => setPlans(data))
+      .catch((err) => console.error("Failed to fetch plans:", err));
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -96,11 +106,10 @@ export default function Signup() {
               <div key={s.number} className="flex items-center">
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
-                      step >= s.number
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-muted-foreground"
-                    }`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${step >= s.number
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground"
+                      }`}
                   >
                     {step > s.number ? (
                       <Check className="w-5 h-5" />
@@ -109,11 +118,10 @@ export default function Signup() {
                     )}
                   </div>
                   <span
-                    className={`text-sm font-medium ${
-                      step >= s.number
-                        ? "text-foreground"
-                        : "text-muted-foreground"
-                    }`}
+                    className={`text-sm font-medium ${step >= s.number
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                      }`}
                   >
                     {s.title}
                   </span>
@@ -275,58 +283,62 @@ export default function Signup() {
                     <>
                       <FormField
                         control={form.control}
-                        name="subscriptionPlanId"
+                        name="libraryPlanId"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Subscription Plan</FormLabel>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field.value}
-                            >
+                            <Select value={field.value} onValueChange={field.onChange}>
                               <FormControl>
                                 <SelectTrigger data-testid="select-plan">
                                   <SelectValue placeholder="Select a plan" />
                                 </SelectTrigger>
                               </FormControl>
+
                               <SelectContent>
-                                <SelectItem value="starter">
-                                  Starter - $49/mo (100 students)
-                                </SelectItem>
-                                <SelectItem value="professional">
-                                  Professional - $99/mo (500 students)
-                                </SelectItem>
-                                <SelectItem value="enterprise">
-                                  Enterprise - $199/mo (2000 students)
-                                </SelectItem>
+                                {plans.map((p) => (
+                                  <SelectItem key={p.planId} value={String(p.planId)}>
+                                    {p.planName} – ₹{p.planPrice} / {p.noOfDays} Days
+                                  </SelectItem>
+                                ))}
                               </SelectContent>
                             </Select>
+
                             <FormMessage />
                           </FormItem>
                         )}
                       />
 
-                      <div className="bg-muted p-4 rounded-lg space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">
-                            Monthly subscription
-                          </span>
-                          <span className="font-medium">$99.00</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">
-                            Grace period
-                          </span>
-                          <span className="font-medium">7 days included</span>
-                        </div>
-                        <div className="pt-2 border-t flex justify-between font-semibold">
-                          <span>Total due today</span>
-                          <span>$0.00</span>
-                        </div>
-                        <p className="text-xs text-muted-foreground pt-2">
-                          Start with a 7-day grace period. First payment due
-                          after grace period ends.
-                        </p>
-                      </div>
+                      {/* Dynamic Summary */}
+                      {(() => {
+                        const selected = plans.find(
+                          (x) => String(x.planId) === form.watch("libraryPlanId")
+                        );
+
+                        return selected ? (
+                          <div className="bg-muted p-4 rounded-lg space-y-2">
+
+                            <div className="flex justify-between text-sm">
+                              <span className="text-muted-foreground">Plan Price</span>
+                              <span className="font-medium">₹{selected.planPrice}</span>
+                            </div>
+
+                            <div className="flex justify-between text-sm">
+                              <span className="text-muted-foreground">Duration</span>
+                              <span className="font-medium">{selected.noOfDays} days</span>
+                            </div>
+
+                            <div className="pt-2 border-t flex justify-between font-semibold">
+                              <span>Total due today</span>
+                              <span>₹0.00</span>
+                            </div>
+
+                            <p className="text-xs text-muted-foreground pt-2">
+                              Start with a 7-day grace period. First payment after the grace period.
+                            </p>
+                          </div>
+                        ) : null;
+                      })()}
+
                     </>
                   )}
 
